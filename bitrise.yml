@@ -28,4 +28,3 @@ workflows:
         inputs:
         - branch_source_name: master
         - branch_target_name: test
-        - example_step_input: Example Step Input's value

@@ -68,7 +68,6 @@ inputs:
         Description of this input.
       is_expand: true
       is_required: true
-      value_options: []
   - branch_target_name:
     opts:
       title: "Target branch name"
@@ -77,7 +76,6 @@ inputs:
         Description of this input.
       is_expand: true
       is_required: true
-      value_options: []
 
 outputs:
   - EXAMPLE_STEP_OUTPUT:
