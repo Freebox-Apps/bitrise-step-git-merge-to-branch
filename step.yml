@@ -12,7 +12,7 @@ title: |-
 summary: |
   Merge from current branch to another
 description: |
-  one description
+  Merge from current branch to another
 website: https://github.com/Freebox-CI/bitrise-step-git-merge-to-branch
 source_code_url: https://github.com/Freebox-CI/bitrise-step-git-merge-to-branch
 support_url: https://github.com/Freebox-CI/bitrise-step-git-merge-to-branch/issues
@@ -52,26 +52,29 @@ run_if: ""
 deps:
   brew:
   - name: git
-  - name: wget
   apt_get:
   - name: git
-  - name: wget
-
 
 toolkit:
   bash:
     entry_file: step.sh
 
-
 inputs:
-  - example_step_input: Default Value - you can leave this empty if you want to
+  - branch_source_name:
     opts:
-      title: "Example Step Input"
-      summary: Summary. No more than 2-3 sentences.
+      title: "Source branch name"
+      summary: Set the source branch
       description: |
         Description of this input.
-
-        Can be Markdown formatted text.
+      is_expand: true
+      is_required: true
+      value_options: []
+  - branch_target_name:
+    opts:
+      title: "Target branch name"
+      summary: Set the target branch
+      description: |
+        Description of this input.
       is_expand: true
       is_required: true
       value_options: []
