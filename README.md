@@ -1,6 +1,6 @@
 # git-merge-to-branch
 
-one description
+Merge current branch to another
 
 
 ## How to use this Step
