@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-echo "|\t\t Opening auto-merge MR for Source branche: ${branch_source_name} into target: ${branch_target_name}"
+echo -e "|\t\t Opening auto-merge MR for Source branche: ${branch_source_name} into target: ${branch_target_name}"
 
 report_branch=report_${branch_source_name}
 git checkout -b ${report_branch}
