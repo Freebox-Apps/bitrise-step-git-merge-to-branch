@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+branch_source_name="HEAD"
+
 diff=$(git diff $branch_source_name origin/$branch_target_name)
 
 if [ -z "$diff" ]
