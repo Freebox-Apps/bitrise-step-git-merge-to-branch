@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-branch_source_name=$(git branch --show-current)
+branch_source_name=$(git rev-parse --abbrev-ref HEAD)
 
 diff=$(git diff $branch_source_name origin/$branch_target_name)
 
