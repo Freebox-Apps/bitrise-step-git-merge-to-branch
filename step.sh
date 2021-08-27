@@ -1,15 +1,19 @@
 #!/bin/bash
 set -e
 
+echo -e "fetching ${branch_target_name}"
+git fetch origin $branch_target_name
+
 branch_source_name=$(git rev-parse --abbrev-ref HEAD)
 
+echo -e "start diff for Source branche: ${branch_source_name} with target: ${branch_target_name}"
 diff=$(git diff $branch_source_name origin/$branch_target_name)
 
 if [ -z "$diff" ]
 then
-    echo -e "|\t Nothing to merge between ${branch_source_name} and ${branch_target_name}"
+    echo -e "|\t Nothing to merge"
 else
-    echo -e "|\t Opening auto-merge MR for Source branche: ${branch_source_name} into target: ${branch_target_name}"
+    echo -e "|\t Opening auto-merge MR"
 
     report_branch=report_${branch_source_name}
     git checkout -b ${report_branch} &> /dev/null
