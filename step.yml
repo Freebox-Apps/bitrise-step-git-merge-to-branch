@@ -68,3 +68,11 @@ inputs:
         Branch in which we want to merge current branch
       is_expand: true
       is_required: true
+  - branch_source_name:
+    opts:
+      title: "Source branch name"
+      summary: Set the source branch name
+      description: |
+        Name of the branch we are merging in the target branch. Only used for information, the branch that is actually merged is the current branch the workflow is executed on
+      is_expand: true
+      is_required: true
