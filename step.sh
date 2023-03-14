@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-branch_target_name="dev"
-branch_source_name="alpha"
-
 echo -e "fetching ${branch_target_name}"
 git fetch origin $branch_target_name
 
