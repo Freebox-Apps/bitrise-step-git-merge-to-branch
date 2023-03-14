@@ -25,7 +25,7 @@ else
     result=$(git diff --cached)
     if [ -z "$result" ]
     then
-       git commit -m "chore(merge): merge $branch_source_name into $branch_target_name
+       git commit --author="Bitrise Freebox <nbrocard+bitrise@freebox.fr>" -m "chore(merge): merge $branch_source_name into $branch_target_name
 
 $commit_lines"
     else
@@ -34,7 +34,7 @@ $commit_lines"
 
     echo -e "|\t Opening auto-merge MR"
 
-    report_branch="report/${branch_source_name}_into_${branch_target_name}"
+    report_branch="report/${branch_source_name}_into_${branch_target_name}_$(date +%Y-%m-%d_%H-%M)"
     git checkout -b ${report_branch}
 
     echo -e "|\t Opening MR for ${report_branch} into ${branch_target_name}"
