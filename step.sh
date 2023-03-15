@@ -40,7 +40,22 @@ $commit_lines"
 
     echo "desc: ${commit_lines}"
 
-    git push --set-upstream origin ${report_branch} -o merge_request.create -o merge_request.target=${branch_target_name} -o merge_request.title="${title}" -o merge_request.merge_when_pipeline_succeeds -o merge_request.remove_source_branch
+    if [ "$repo_type" = "gitlab" ]; then
+        git push --set-upstream origin ${report_branch} -o merge_request.create -o merge_request.target=${branch_target_name} -o merge_request.title="${title}" -o merge_request.merge_when_pipeline_succeeds -o merge_request.remove_source_branch
+    elif [ "$repo_type" = "github" ]; then
+        #install gh
+        type -p curl >/dev/null || sudo apt install curl -y
+        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+        && sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+        && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+        && sudo apt update \
+        && sudo apt install gh -y
+
+        # push and create PR
+        git push origin ${report_branch}
+        gh pr create --base ${branch_target_name} --head ${report_branch} --title "${title}"
+        gh pr merge --auto -m
+    fi
 
     echo -e "|\t MR is now opened and will be merge automatically if there is no conflict"
 fi
