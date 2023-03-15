@@ -76,3 +76,10 @@ inputs:
         Name of the branch we are merging in the target branch. Only used for information, the branch that is actually merged is the current branch the workflow is executed on
       is_expand: true
       is_required: true
+  - repo_type: "gitlab"
+    opts:
+      title: On which repository to ask for merge
+      value_options:
+       - "gitlab"
+       - "github"
+      is_required: false
