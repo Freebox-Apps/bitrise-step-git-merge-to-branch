@@ -40,7 +40,7 @@ $commit_lines"
 
     echo "desc: ${commit_lines}"
 
-    if [ "$repo_type" = "gitlab" ]; then
+    if [ -z "$repo_type" ] || [ "$repo_type" = "gitlab" ]; then
         git push --set-upstream origin ${report_branch} -o merge_request.create -o merge_request.target=${branch_target_name} -o merge_request.title="${title}" -o merge_request.merge_when_pipeline_succeeds -o merge_request.remove_source_branch
     elif [ "$repo_type" = "github" ]; then
         #install gh
