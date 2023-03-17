@@ -53,7 +53,7 @@ $commit_lines"
 
         # push and create PR
         git push origin ${report_branch}
-        gh pr create --base ${branch_target_name} --head ${report_branch} --title "${title}"
+        gh pr create --base ${branch_target_name} --head ${report_branch} --fill
         gh pr merge --auto -m
     fi
 
