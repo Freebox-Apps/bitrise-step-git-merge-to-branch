@@ -18,17 +18,6 @@ else
     oldest_commit=$(git merge-base --octopus origin/$branch_source_name origin/$branch_target_name)
     commit_lines=$(git log --pretty=%b $oldest_commit..origin/$branch_source_name | perl -nle'print $& while m{(resolve|end) (#\d+,?)+}g')
 
-    git merge --no-commit --no-ff origin/$branch_target_name
-    result=$(git diff --cached)
-    if [ -z "$result" ]
-    then
-       git commit --author="Bitrise Freebox <nbrocard+bitrise@freebox.fr>" -m "chore(merge): merge $branch_source_name into $branch_target_name
-
-$commit_lines"
-    else
-       git merge --abort
-    fi
-
     echo -e "|\t Opening auto-merge MR"
 
     report_branch="report/${branch_source_name}_into_${branch_target_name}_$(date +%Y-%m-%d_%H-%M)"
@@ -53,7 +42,7 @@ $commit_lines"
 
         # push and create PR
         git push origin ${report_branch}
-        gh pr create --base ${branch_target_name} --head ${report_branch} --fill
+        gh pr create --base ${branch_target_name} --head ${report_branch} --title "${title}" --body "${commit_lines}"
         gh pr merge --auto -m
     fi
 
