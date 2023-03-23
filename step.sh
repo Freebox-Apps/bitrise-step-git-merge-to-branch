@@ -43,7 +43,7 @@ else
         # push and create PR
         git push origin ${report_branch}
         gh pr create --base ${branch_target_name} --head ${report_branch} --title "${title}" --body "${commit_lines}"
-        gh pr merge --auto -m
+        gh pr merge --auto -m --body "${commit_lines}"
     fi
 
     echo -e "|\t MR is now opened and will be merge automatically if there is no conflict"
