@@ -76,10 +76,19 @@ inputs:
         Name of the branch we are merging in the target branch. Only used for information, the branch that is actually merged is the current branch the workflow is executed on
       is_expand: true
       is_required: true
-  - repo_type: "gitlab"
+  - repo_type: "github"
     opts:
       title: On which repository to ask for merge
       value_options:
        - "gitlab"
        - "github"
+  - github_app_token:
+    opts:
+      title: Github App token
+      description: |
+        Bitrise authentication token with Github App. The step will use it with `gh` command line tool.
+        
+        It might be contained in `GIT_HTTP_PASSWORD` environnement variable.
+        
+        Leave this empty if you authenticate with OAuth.
       is_required: false

@@ -32,6 +32,16 @@ else
     if [ -z "$repo_type" ] || [ "$repo_type" = "gitlab" ]; then
         git push --set-upstream origin ${report_branch} -o merge_request.create -o merge_request.target=${branch_target_name} -o merge_request.title="${title}" -o merge_request.merge_when_pipeline_succeeds -o merge_request.remove_source_branch
     elif [ "$repo_type" = "github" ]; then
+    
+        # Set GH_TOKEN environment variable
+        old_gh_token="$GH_TOKEN"
+        if [ -n "$github_app_token" ]; then
+            envman add --key GH_TOKEN --value $github_app_token
+        fi
+
+        # test GitHub authentication status
+        gh auth status
+
         #install gh
         type -p curl >/dev/null || sudo apt install curl -y
         curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -44,6 +54,9 @@ else
         git push origin ${report_branch}
         gh pr create --base ${branch_target_name} --head ${report_branch} --title "${title}" --body "${commit_lines}"
         gh pr merge --auto -m --body "${commit_lines}"
+
+        # Restoring previous GH_TOKEN value
+        envman add --key GH_TOKEN --value $old_gh_token
     fi
 
     echo -e "|\t MR is now opened and will be merge automatically if there is no conflict"
