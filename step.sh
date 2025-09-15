@@ -55,7 +55,9 @@ else
         gh pr merge --auto -m --body "${commit_lines}"
 
         # Restoring previous GH_TOKEN value
-        envman add --key GH_TOKEN --value $old_gh_token
+         if [ -n "$old_gh_token" ]; then
+            envman add --key GH_TOKEN --value $old_gh_token
+        fi
     fi
 
     echo -e "|\t MR is now opened and will be merged automatically if there is no conflict"
